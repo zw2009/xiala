@@ -1,0 +1,1211 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+		<%@include file="/WEB-INF/views/include/head.jsp" %>
+		<link href="assets/css/bootstrap.css" rel="stylesheet">
+		<link href="${ctxView}/css/shopMall.css?ver=2" rel="stylesheet">
+		<link href="${ctxView}/css/style.css?ver=2" rel="stylesheet">
+		<link href="${ctxView}/css/shoppingBase.css?ver=2" rel="stylesheet">
+		<link rel="icon" href="${ctxView}/images/favicon.ico" type="img/x-ico" />
+		<!--zw添加开始-->
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<!--zw添加结束-->
+		<script type="text/javascript">
+			function page(n, s) {
+				$("#pageNo").val(n);
+				$("#pageSize").val(s);
+				$("#searchForm").submit();
+				return false;
+			}
+		</script>
+		<style type="text/css">
+			@font-face {
+				font-family: "iconfont";
+				src: url('${ctxView}/css/iconfont.eot?t=1486452679920');
+				/* IE9*/
+				src: url('${ctxView}/css/iconfont.eot?t=1486452679920#iefix') format('embedded-opentype'),
+				/* IE6-IE8 */
+				url('${ctxView}/css/iconfont.woff?t=1486452679920') format('woff'),
+				/* chrome, firefox */
+				url('${ctxView}/css/iconfont.ttf?t=1486452679920') format('truetype'),
+				/* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+				url('${ctxView}/css/iconfont.svg?t=1486452679920#iconfont') format('svg');
+				/* iOS 4.1- */
+			}
+			
+			.iconfont {
+				font-family: "iconfont" !important;
+				font-size: 16px;
+				font-style: normal;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			
+			.container {
+				padding: 0;
+				width: 1200px;
+			}
+			
+			a {
+				margin-left: 0;
+			}
+			
+			a:hover {
+				color: #ccc;
+				text-decoration: none;
+			}
+			
+			.icon-arrow-down:before {
+				content: "\e640";
+			}
+			
+			.icon-arrow-up:before {
+				content: "\e641";
+			}
+			
+			.g-view {
+				width: 1200px;
+				margin-top: 20px;
+			}
+			
+			.gl-h-item .gl-i-wrap {
+				width: 100%;
+				padding: 0;
+				overflow: hidden;
+				background: none;
+			}
+			
+			.gl-h-item .gl-i-wrap .col-1 {
+				width: 33%;
+				margin-right: 1%;
+			}
+			
+			.goods_list .line-bottom {
+				border-bottom: 1px solid #d2d2d2;
+			}
+			
+			.gl-h-item {
+				position: relative;
+				padding: 12px 0px 17px;
+			}
+			
+			.col .p-right {
+				float: left;
+				width: calc(100% - 80px);
+				margin-left: 10px;
+			}
+			
+			.gl-i-wrap .p-name {
+				margin-top: 0px;
+				position: relative;
+			}
+			
+			.p-name {
+				font-size: 16px;
+			}
+			
+			.w1200 .gl-h-item .gl-i-wrap .col-1 .p-right {
+				width: 70%;
+			}
+			
+			.w1200 .p-cart {
+				line-height: 76px;
+				text-align: center;
+			}
+			
+			.cart-amount {
+				margin-left: 12%;
+				margin-top: 20%;
+			}
+			
+			.cart-amount .buy-num {
+				border: 1px solid #d2d2d2;
+				width: 22px;
+				height: 22px;
+				float: left;
+				outline: 0;
+				text-align: center;
+			}
+			
+			.cart-amount .stock_num {
+				width: 90%;
+				float: left;
+				height: 30px;
+				line-height: 30px;
+			}
+			
+			.w1200 .gl-h-item .gl-i-wrap .col-8 {
+				margin-right: 0;
+				width: 5%;
+				height: 80px;
+				line-height: 80px;
+			}
+			
+			.w1200 .gl-h-item .gl-i-wrap .col-2 {
+				margin-right: 0;
+				width: 15%;
+				height: 80px;
+				line-height: 80px;
+			}
+			
+			.goods_list .gl-h-title .gl-i-wrap {
+				height: 28px;
+			}
+			
+			.pagination {
+				display: inline-block;
+				padding-left: 0;
+				margin: 20px 0;
+				border-radius: 4px;
+				float: right;
+			}
+			
+			.pagination .controls input {
+				border: 0;
+				color: #999;
+				width: 30px;
+				padding: 0;
+				margin: -3px 0 0 0;
+				text-align: center;
+			}
+			/*zw样式添加开始*/
+			
+			ul,
+			li,h3 {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			em{
+				font-style: normal;
+			}
+			.row {
+			    margin-right: -0px;
+			    margin-left: -0px;
+			}
+			a:focus,
+			a:active:focus,
+			a.active:focus,
+			a.focus,
+			a:active.focus,
+			a.active.focus {
+				text-decoration: none;
+			}
+			/*滚动条*/
+			.tbar-panel-content::-webkit-scrollbar {
+			    width: 5px;
+			}
+			 .tbar-panel-content::-webkit-scrollbar-track {
+		        -webkit-border-radius: 6px;
+			    border-radius: 6px;
+			    background-color: transparent;
+			}
+			 .tbar-panel-content::-webkit-scrollbar-thumb {
+			    -webkit-border-radius: 6px;
+			    border-radius: 6px;
+			    background: #7b6f6f;
+			}
+			.w1200 {
+				width: 1200px;
+				margin: 0 auto;
+			}
+			
+			.topmenu {
+				height: 40px;
+				line-height: 40px;
+				border-bottom: 2px solid #1d5dc9;
+			}
+			
+			.categorys {
+				width: 232px;
+				height: 40px;
+				background: #1d5dc9;
+				text-align: center;
+				color: #fff;
+				font-size: 20px;
+			}
+			
+			.categorys a {
+				color: #fff;
+			}
+			/*右边列表*/
+			
+			.nav-main {
+				width: 968px;
+			}
+			
+			.nav-main ul {
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			.nav-main ul li {
+				float: left;
+				margin-left: 38px;
+			}
+			
+			.nav-main ul li a {
+				font-size: 16px;
+				display: block;
+				color: #555;
+			}
+			
+			.nav-main li a.curr {
+				color: #025cd7;
+				text-decoration: none;
+			}
+			/*选级菜单*/
+			
+			.crumbs-nav {
+				height: 25px;
+				line-height: 25px;
+				padding: 12px 0;
+			}
+			
+			.crumbs-nav-item {
+				float: left;
+				margin-right: 7px;
+				position: relative;
+			}
+			
+			.crumbs-nav-item .menu-drop {
+				float: left;
+				margin-right: 7px;
+				background-color: #fff;
+			}
+			
+			.menu-drop .trigger {
+				display: inline-block;
+				padding: 0 10px;
+				height: 23px;
+				border: 1px solid #d2d2d2;
+				cursor: pointer;
+			}
+			
+			.menu-drop .trigger a {
+				color: #555;
+			}
+			
+			.menu-drop .icon-down {
+				font-size: 12px;
+				margin-left: 2px;
+			}
+			
+			.menu-drop-main {
+				display: none;
+				width: 240px;
+				padding: 6px 0 4px 10px;
+				position: absolute;
+				left: 0;
+				top: 22px;
+				border: 1px solid #ddd;
+				background-color: #fff;
+				z-index: 10;
+			}
+			
+			.menu-drop:hover .trigger {
+				border-color: #1d5dc9;
+				border-bottom-color: #fff;
+			}
+			
+			.menu-drop:hover .menu-drop-main {
+				display: block;
+				border-color: #1d5dc9;
+			}
+			
+			.menu-drop-main li {
+				float: left;
+				width: 68px;
+				height: 24px;
+				line-height: 24px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				margin: 0 5px 2px 0;
+			}
+			
+			.menu-drop-main li a {
+				color: #555;
+				font-size: 12px;
+			}
+			
+			.menu-drop-main li a:hover {
+				color: #1d5dc9;
+			}
+			
+			.iconright {
+				line-height: 23px;
+			}
+			/*侧边栏滑出*/
+			
+			.quick_links_wrap,
+			.mui-mbar-tabs {
+				height: 100%;
+				width: 40px;
+				right: 0;
+				position: fixed;
+				right: -320px;
+				bottom: 0;
+				z-index: 100002;
+				height: 100%;
+				background: #fff;
+				border-left: 1px solid #dedede;
+				transition: all 0.8s;
+			}
+			/*滑出按钮*/
+			.show{
+				right: 0;
+				transition: all 0.8s;
+			}
+			.quick_links_panel {
+				position: absolute;
+				top: 50%;
+				left: -40px;
+				margin-top: -75px;
+				width: 40px;
+				height: 150px;
+				padding-top: 4px;
+				background:#77b0fd ;
+			}
+			
+			.quick_links_panel:hover {
+				background: #3483f7;
+			}
+			
+			#shopCart {
+				    text-align: center;
+			}
+			i.message{
+				width: 40px;
+			    height:34px;
+			    background: #000;
+	   			display: block;
+	   			background: url(img/shopcart.png) no-repeat center 2px;
+				background-size: 28px 28px;
+			}
+			#shopCart a {
+				font-size: 14px;
+				color: #fff;
+			}
+			
+			#shopCart a .span {
+				display: inline-block;
+				width: 16px;
+			}
+			
+			#shopCart a span {
+				width: 21px;
+				height: 21px;
+				display: block;
+				border-radius: 50%;
+				background: #f42424;
+				text-align: center;
+				line-height: 21px;
+				margin: 4px 0 0 10px;
+				cursor: pointer;
+				color: #fff;
+			}
+			/*内容区样式*/
+			.quick_cart_list{
+				
+			}
+			.ibar_plugin_title{
+				height: 38px;
+			    line-height: 38px;
+			    border-bottom: 1px solid #dedede;
+			    color: #333;
+			    font-size: 14px;
+			    font-weight: 700;
+			    padding: 0 10px;
+			    background: #efefef;
+			    overflow: hidden;
+			}
+			.ibar_plugin_title h3{
+				float: left;
+				height: 38px;
+			    line-height: 38px;
+			    font-size: 16px;
+			}
+			.ibar_plugin_title a{
+				float: right;
+				width: 38px;
+				height: 38px;
+				background: url(img/close.png) no-repeat center center;
+				background-size: 24px 24px;
+			}
+			
+			.pop_panel{
+				
+			}
+			.tbar-panel-content{
+				width: 320px;
+				padding: 0 10px;
+				overflow: auto;
+				position: relative;
+			}
+			.ibar_cart_group{
+				
+			}
+			.ibar_cart_group ul{
+				
+			}
+			.ibar_cart_group ul li{
+				position: relative;
+				padding: 15px 0;
+			    border-bottom: 1px dashed #e1e1e1;
+			    overflow: hidden;
+			}
+			.ibar_cart_group ul li:last-child{
+				 border-bottom:none;
+			}
+			.cart_item_pic {
+			    float: left;
+			    width: 87px;
+			    height: 87px;
+			}
+			.cart_item_pic img {
+			    width: 85px;
+			    height: 85px;
+			    border: 1px solid #f4f4f4;
+			}
+			.cart_item_desc {
+			    float: left;
+			    width: 158px;
+			    padding: 3px 0 0 10px;
+			}
+			.cart_item_name {
+			    display: inline-block;
+			    width: 100%;
+			    height: 36px;
+			    overflow: hidden;
+			    line-height: 18px;
+			    color: #5c5c5c;
+			    font-size: 12px;
+			    margin-bottom: 10px;
+			}
+			.cart_item_price {
+			    height: 16px;
+			    padding-right: 65px;
+			    overflow: hidden;
+			    color: #666;
+			}
+			.cart_item .delete_cart {
+			    width: 35px;
+			    height: 16px;
+			    line-height: 16px;
+			    text-align: right;
+			    display: block;
+			    position: absolute;
+			    top: 46px;
+			    right: 5px;
+			}
+			a.cart_item_name:hover {
+				color: #337ab7;
+			}
+			.cart_item_price .cart_price {
+			    color: #f42424;
+			}
+			.cart_item .delete_cart a{
+				font-size: 12px;
+			}
+			.cart_item .delete_cart a:hover {
+			    color: red;
+			}
+			
+			.cart_handler {
+				border-top: 10px solid #eee;
+			    height: 80px;
+			    width: 100%;
+			    background: #fff;
+			    text-align: center;
+			}
+			.cart_handler_header {
+			    width: 300px;
+			    margin: 8px 10px;
+			    overflow: hidden;
+			}
+			.cart_handler_left {
+			    float: left;
+			}
+			.cart_handler_left .cart_price {
+			    color: #f42424;
+			}
+			.cart_handler_right {
+			    float: right;
+			    font-weight: 600;
+			    font-size: 16px;
+			    font-family: verdana;
+			    color: #f42424;
+			}
+			.cart_go_btn {
+			    display: inline-block;
+			    height: 33px;
+			    line-height: 33px;
+			    font-size: 18px;
+			    color: #fff;
+			    text-align: center;
+			    text-decoration: none;
+			    background: #347bd4;
+			    width: 260px;
+			
+			}
+			/*购物车无*/
+			.emptynone{
+				display: none;
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top:30%;
+				left: 20%;
+				background: url(img/noshopcart.png) no-repeat center center;
+			}
+			.emptynone span{
+				margin-top: 180px;
+			    display: block;
+			    text-align: center;
+			}
+			.emptynone span a{
+				display:block;
+				 color: red;
+			}
+			/*zw样式添加结束*/
+		</style>
+		<title>药品商城</title>
+	</head>
+
+	<body class="bg-ligtGary">
+		<div class="header header-cart">
+			<div class="w w1200">
+				<div class="logo">
+					<div class="logoImg">
+						<a href=""><img src="${ctxView}/images/logo.png"></a>
+					</div>
+				</div>
+				<div class="shopCart" data-ectype="dorpdown" id="ECS_CARTINFO" data-carteveval="0">
+					<div class="shopCart-con dsc-cm">
+						<a href="${ctx}/bus/arrivalOrderInfo/clinicShoppingCart"> <i class="glyphicon glyphicon-shopping-cart"></i>
+							<span>购物清单</span> <em class="count cart_num"><laber id="goodsCartNum">${goodsCartNum}</laber></em>
+						</a>
+					</div>
+				</div>
+				<div class="myOrder" id="ECS_MYORDER">
+					<div class="myOrder-con dsc-cm">
+						<a href="${ctx}/bus/arrivalOrderInfo/queryClinicOrderInfoList"> <i class="glyphicon glyphicon-list-alt"></i> <span>我的订单</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--zw添加药品菜单开始-->
+		<div class="w1200">
+			<!--全部分类-->
+			<div class="w1200 topmenu clearfix">
+				<div class="categorys pull-left">
+					<a href="javascript:void(0)" target="_blank">全部商品分类</a>
+				</div>
+				<div class="nav-main pull-left" id="nav">
+					<ul class="navitems clearfix" data-type="range">
+						<li>
+							<a class="curr" href="javascript:void(0)">首页</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">大品种直采</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">厂家专栏</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">供应商专栏</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--细分类-->
+			<div class="crumbs-nav">
+				<div class="crumbs-nav-main clearfix">
+					<div class="crumbs-nav-item">
+						<div class="menu-drop">
+							<div class="trigger">
+								<a href="javascript:void(0)"><span>全部分类</span></a>
+								<i class="iconfont icon-down">&or;</i>
+							</div>
+							<div class="menu-drop-main">
+								<ul>
+									<li>
+										<a href="javascript:void(0)">西药</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">中成药及中药饮片</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">保健食品及食品</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">医疗器械及非药品</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">其他</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<i class="iconright">></i> </div>
+					<div class="crumbs-nav-item">
+						<div class="menu-drop">
+							<div class="trigger">
+								<a href="javascript:void(0)"><span>西药</span></a>
+								<i class="iconfont icon-down">&or;</i>
+							</div>
+							<div class="menu-drop-main">
+								<ul>
+									<li>
+										<a href="javascript:void(0)">解热镇痛抗炎药</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">抗微生物类及抗寄生虫、抗肿瘤药</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">心脑血管系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">呼吸系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">消化系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">内分泌系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">泌尿生殖系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">免疫系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">血液系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">精神与神经系统</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">五官科/外用药</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">麻醉用药</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">其他</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<i class="iconright">></i> </div>
+					<div class="crumbs-nav-item">
+						<div class="menu-drop">
+							<div class="trigger">
+								<a href="javascript:void(0)"><span>解热镇痛抗炎药</span></a>
+								<i class="iconfont icon-down">&or;</i>
+							</div>
+							<div class="menu-drop-main">
+								<ul>
+									<li>
+										<a href="javascript:void(0)">其他</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--侧边栏购物车滑出-->
+		<div class="mui-mbar-tabs">
+			<div class="quick_links_wrap" style="width: 320px;">
+
+				<div class="quick_link_mian">
+					<!--滑出按钮-->
+					<div class="quick_links_panel">
+						<div id="shopCart">
+							<a href="javascript:void(0);" class="cart_list current">
+								<i class="message"></i>
+								<div class="span">购物清单</div>
+								<span class="cart_num">8</span>
+							</a>
+						</div>
+					</div>
+
+					<!--滑出内容-->
+					<div id="quick_links_pop" class="quick_cart_list">
+						<div class="ibar_plugin_title"><h3>购物清单</h3><a href="javascript:;" class="ibar_closebtn" title="关闭"></a></div>
+						
+						<div class="pop_panel">
+							
+							<div class="tbar-panel-main" style="height: 899px;">
+								<div class="ibar_plugin_content">
+									<!--上半部分-->
+									<div class="tbar-panel-content" style="height: 809px;">
+										<!--当购物没有物品时-->
+										<div class="emptynone"><span>您的购物车空空如也！<a href="">快去选购吧！</a></span></div>
+										<div class="ibar_cart_group">
+											
+											<ul>
+												<li class="cart_item ">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun2/25441.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="">氯化钠注射液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>1.00</span>×1</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item ">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/1707303_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">注射用哌拉西林钠舒巴坦钠</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>17.63</span>×1</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item ">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun2/25548.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">小建中颗粒</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>22.50</span>×1</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item ">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun2/25470.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">喉咽清口服液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>16.26</span>×1</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item last">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/6902654000495_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">布洛芬混悬液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>4.73</span>×4</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item last">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/6902654000495_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">布洛芬混悬液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>4.73</span>×4</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item last">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/6902654000495_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">布洛芬混悬液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>4.73</span>×4</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item last">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/6902654000495_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">布洛芬混悬液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>4.73</span>×4</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item last">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/6902654000495_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">布洛芬混悬液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>4.73</span>×4</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item last">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/6902654000495_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">布洛芬混悬液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>4.73</span>×4</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+												<li class="cart_item last">
+													<div class="cart_item_pic">
+														<a href="javascript:void(0)"><img src="images/huarun/6902654000495_1.jpg"></a>
+													</div>
+													<div class="cart_item_desc">
+														<a class="cart_item_name" href="javascript:void(0)">布洛芬混悬液</a>
+														<div class="cart_item_price"><span class="cart_price"><em>￥</em>4.73</span>×4</div>
+														<div class="delete_cart">
+															<a href="javascript:void(0)">删除</a>
+														</div>
+													</div>
+												</li>
+											</ul>
+											
+										</div>
+									</div>
+									<!--内容底部-->
+									<div class="cart_handler">
+										<div class="cart_handler_header">
+											<span class="cart_handler_left">共<span class="cart_price">8</span>件商品</span>
+											<span class="cart_handler_right"><em>￥</em>76.31</span>
+										</div>
+										<a target="_blank" class="cart_go_btn" href="javascript:void(0)">进入购物清单</a>
+									</div>
+								</div>
+								
+							</div>
+
+						</div>
+				
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--zwjs添加开始-->
+		<script src="js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//navitems栏切换样式
+			$(".navitems li").click(function() {
+				$(this).children('a').addClass('curr');
+				$(this).siblings().children('a').removeClass('curr');
+			})
+			//侧边栏滑出隐藏
+			$(".quick_links_panel").click(function(){
+				$(".quick_links_wrap, .mui-mbar-tabs").toggleClass("show");
+			})
+			//侧边栏关闭
+			$(".ibar_closebtn").click(function(){
+				$(".quick_links_wrap, .mui-mbar-tabs").removeClass("show");
+			})
+			//侧边栏删除功能
+			/*判断商品的长度*/
+			if($(".cart_item").length == 0){
+				$(".emptynone").show();
+			}
+			$('.delete_cart').click(function(){
+				$(this).parent().parent(".cart_item").remove();
+				if($(".cart_item").length == 0){
+					$(".emptynone").show();
+				}
+			})
+		</script>
+		<!--zw添加药品菜单结束-->
+
+
+		<!--购物车总体-->
+		<div class="container" style="margin-top:200px ;">
+			<div class="w w1200">
+				<div class="filter">
+					<div class="filter-wrap">
+						<div class="filter-sort">
+							<a href="" class="curr">综合<i class="iconfont icon-arrow-down"></i></a>
+							<a href="" class="">销量<i class="iconfont icon-arrow-up"></i></a>
+							<a href="" class="">价格<i class="iconfont icon-arrow-up"></i></a>
+						</div>
+						<!-- <div class="filter-right">
+						<div class="button-page">
+							<span class="pageState"><span>1</span>/8</span> <a
+								href="javascript:void(0);" title="上一页"><i
+								class="iconfont icon-left"></i></a> <a
+								href="category.php?id=2022&amp;page=2&amp;sort=sort_order&amp;goods_id&amp;order=DESC"
+								class="page page_next" title="下一页"><i
+								class="iconfont icon-right"></i></a>
+						</div>
+					</div> -->
+						<div class="fr mr10">
+							<a href="javascript:void(0);"> <input id="is_only_show" type="checkbox" name="is_only_show" class="ui-checkbox" onclick="isOnlyShow()"> <label class="ui-label" for="is_only_show">仅显示有货商品</label>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="g-view w">
+					<div class="goods-list" style="width:1200px" ectype="gMain">
+						<div class="gl-warp gl-warp-samll">
+							<form name="searchForm" id="searchForm" action="${ctx}/bus/arrivalOrderInfo/searchMedicineInfoByCondition" method="post" class="goodslistForm">
+
+								<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}" />
+								<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+
+								<ul class="goods_list">
+									<li class="gl-h-title item_bg">
+										<div class="gl-i-wrap">
+											<div class="col col-1">通用名/生产厂家/供应商</div>
+											<div class="col col-2">规格</div>
+											<div class="col col-3">包装规格</div>
+											<div class="col col-5">建议零售价</div>
+											<div class="col col-6">采购价</div>
+											<div class="col col-7">采购数量</div>
+											<div class="col col-7" style="width:15%">操作</div>
+										</div>
+									</li>
+
+									<c:forEach items="${page.list}" var="medInfo">
+										<li class="gl-h-item  line-bottom">
+											<div class="gl-i-wrap">
+												<div class="col col-1">
+													<div class="p-img">
+														<a href="${ctx}/bus/arrivalOrderInfo/medicineInfoDetail?medicineId=${medInfo.medicineId}&priceId=${medInfo.priceId}&supplierId=${medInfo.supplierId}" target="_blank"><img src="${medInfo.medImgArray[0]}"></a>
+													</div>
+													<div class="p-right">
+														<div class="p-name">
+															<a href="${ctx}/bus/arrivalOrderInfo/medicineInfoDetail?medicineId=${medInfo.medicineId}&priceId=${medInfo.priceId}&supplierId=${medInfo.supplierId}" title="${medInfo.medicineName}" target="_blank">${medInfo.medicineName}
+															</a>
+														</div>
+														<div class="p-brand">生产厂家：${medInfo.firm}</div>
+														<div class="p-supplier">供应商：${medInfo.supplierName}</div>
+													</div>
+												</div>
+												<div class="col col-2">${medInfo.spec}</div>
+												<div class="col col-2" style="width:10%">${medInfo.packagUnit}</div>
+												<div class="col col-2" style="width:10%">
+													<fmt:formatNumber value="${medInfo.proposalPrice}" pattern="###,###.00" maxFractionDigits="2" />
+												</div>
+												<div class="col col-2" style="width:8%">
+													<div class="my_price">
+														<em>￥</em>
+														<fmt:formatNumber value="${medInfo.price}" pattern="###,###.00" maxFractionDigits="2" />
+													</div>
+												</div>
+												<div class="col col-2" style="width:10%">
+													<div class="cart-amount">
+														<input class="text buy-num" style="width: 70px" id="goods_${medInfo.medicineId}" value="${medInfo.stockNum>0?1:0}" name="number" defaultnumber="1" onchange="changeNum(this,${medInfo.stockNum})">
+														<div class="stock_num">库存： ${medInfo.stockNum}</div>
+													</div>
+												</div>
+												<div class="col col-7" style="width:12%">
+													<div class="p-cart">
+														<a href="javascript:addToCart('${medInfo.medicineId}','${medInfo.priceId}','${medInfo.supplierId}',${medInfo.price});" class="addcart"><img src="${ctxView}/images/shop_add.png"></a>
+													</div>
+												</div>
+											</div>
+										</li>
+									</c:forEach>
+								</ul>
+							</form>
+							<!-- <div id="flyItem2" class="fly_item2">
+							<img src="" width="40" height="40">
+						</div> -->
+						</div>
+						<!-- <input type="hidden" value="2" id="region_id" name="region_id">
+					<input type="hidden" value="28" id="area_id" name="area_id">
+					<input type="hidden" id="cur_goods_id" name="cur_goods_id"
+						value="goods_15326"> -->
+
+						<!-- <div class="tc">
+						<form name="selectPageForm" action="/category.php" method="get">
+							<div class="pages" id="pager">
+								<ul>
+									<div class="item prev">
+										<a href="#none"><i class="iconfont icon-left"></i></a>
+									</div>
+									<div class="item cur">
+										<a href="#none">1</a>
+									</div>
+									<div class="item">
+										<a
+											href="category.php?id=2022&amp;page=2&amp;sort=sort_order&amp;goods_id&amp;order=DESC">2</a>
+									</div>
+									<div class="item">
+										<a
+											href="category.php?id=2022&amp;page=3&amp;sort=sort_order&amp;goods_id&amp;order=DESC">3</a>
+									</div>
+									<div class="item">
+										<a
+											href="category.php?id=2022&amp;page=4&amp;sort=sort_order&amp;goods_id&amp;order=DESC">4</a>
+									</div>
+									<div class="item">
+										<a
+											href="category.php?id=2022&amp;page=5&amp;sort=sort_order&amp;goods_id&amp;order=DESC">5</a>
+									</div>
+									<div class="item">
+										<a
+											href="category.php?id=2022&amp;page=6&amp;sort=sort_order&amp;goods_id&amp;order=DESC">6</a>
+									</div>
+									<div class="item">
+										<a
+											href="category.php?id=2022&amp;page=7&amp;sort=sort_order&amp;goods_id&amp;order=DESC">7</a>
+									</div>
+									<div class="item">
+										<a
+											href="category.php?id=2022&amp;page=8&amp;sort=sort_order&amp;goods_id&amp;order=DESC">8</a>
+									</div>
+									<div class="item next">
+										<a
+											href="category.php?id=2022&amp;page=2&amp;sort=sort_order&amp;goods_id&amp;order=DESC"><i
+											class="iconfont icon-right"></i></a>
+									</div>
+								</ul>
+							</div>
+						</form>
+					</div> -->
+					</div>
+				</div>
+			</div>
+			<div class="pagination">${page}</div>
+		</div>
+
+		<footer>
+			<div class="footer-sy">
+				<div class="row">
+					<div class="col-md-7">
+						<address style="float: right;font-size: 15px; margin-top: 32px;">版权所有：湖南思众云网络科技责任有限公司　</address>
+					</div>
+					<div class="col-md-5">
+						<img src="${ctxView}/images/gzh.jpg" style="height:85px">
+						<p>思众云公众号</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!--zwjs添加结束-->
+		<script type="text/javascript">
+			var isOnlyShow = function() {
+				var isShow = $("#is_only_show").is(':checked');
+				var isShowValue = 0;
+				if(isShow) {
+					isShowValue = 1;
+					window.location.href = "category.php?page_type=0&shop=-1&keywords=安和寿药品采购商城&category=2022&display=grid&brand=0&ubrand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=sort_order&goods_id&goods_id&is_only_show=" + isShowValue + "#goods_list";
+				} else {
+					console.log(isShow)
+					window.location.href = "category.php?page_type=0&shop=-1&keywords=安和寿药品采购商城&category=2022&display=grid&brand=0&ubrand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=sort_order&goods_id&goods_id&is_only_show=" + isShowValue + "#goods_list";
+				}
+			}
+			$(function() {
+				var isShowValue = "" || 0;
+				console.log(isShowValue);
+				if(isShowValue === "1") {
+					$("#is_only_show").prop("checked", true);
+				}
+			});
+		</script>
+
+		<script type="text/javascript">
+			function changeNum(tis, stockNum) {
+				if(stockNum < 1) {
+					tis.value = 0;
+				}
+			}
+
+			var promise;
+
+			function addToCart(medicineId, priceId, supplierId, price) {
+				var url = '/bus/orderStaging/saveOrderStagingInfo';
+				para = {};
+				para.priceId = priceId;
+				para.medicineId = medicineId;
+				para.supperliId = supplierId;
+				para.costPrice = price;
+				var orderNum = $("#goods_" + medicineId).val();
+				if(orderNum == '' || orderNum < 0) {
+					orderNum = 1;
+				}
+				para.orderNum = orderNum;
+
+				if(promise)
+					clearTimeout(promise);
+				promise = setTimeout(function() {
+					$.ajax({
+						type: "POST",
+						url: "${ctx}" + url,
+						data: para,
+						dataType: "json",
+						success: function(data) {
+							if(data.resultCode != 1) {
+								toastr["error"](data.resultMessage);
+							} else {
+								var cartNum = parseInt($('#goodsCartNum').text()) + parseInt(orderNum);
+								$('#goodsCartNum').text(cartNum);
+								toastr["success"]("已加入购物车！");
+							}
+						}
+					});
+				});
+			}
+
+			/* function saveOrderStagingInfo(medicineId, priceId,supplierId,price) {
+
+				var url = '/bus/orderStaging/saveOrderStagingInfo';
+				para = {};
+				para.priceId = priceId;
+				para.medicineId = medicineId;
+				para.supplierId = supplierId;
+				para.costPrice = price;
+				para.orderNum = 1;
+
+				if (promise)
+					clearTimeout(promise);
+				promise = setTimeout(function() {
+					$.ajax({
+						type : "POST",
+						url : "${ctx}" + url,
+						data : para,
+						dataType : "json",
+						success : function(data) {
+							if (data.resultCode != 1) {
+								toastr["error"](data.resultMessage);
+							}  else {
+								$('#goodsCartNum').text(data.goodsCartNum);
+							} 
+						}
+					});
+				});
+			} */
+		</script>
+	</body>
+
+</html>
