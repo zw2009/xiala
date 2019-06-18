@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>门诊病历</title>
 	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.content {
+			background: red;
+		}
+	</style>
+
 	<body>
-		
-		<div class=""></div>
-			
+
+		<div class="content">
+			1111111
+		</div>
+		<script src="js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var W = 0;
+			var H = 0;
+
+			function findDimensions() //函数：获取尺寸
+			{
+				W = $(window).innerWidth();
+				H = $(window).innerHeight();
+				// 结果输出至两个文本框
+				$(".content").css({
+					"width" : W  + 'px' ,
+					"height": H   + 'px'
+				})
+				console.log(H)
+			}
+			findDimensions(); // 调用函数，获取数值
+			//setInterval(findDimensions,2000)
+		</script>
 	</body>
+
 </html>
