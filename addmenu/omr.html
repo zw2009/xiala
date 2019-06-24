@@ -4,40 +4,823 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>门诊病历</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 	</head>
 	<style type="text/css">
-		*{
+		* {
 			margin: 0;
 			padding: 0;
 		}
-		.content {
-			background: red;
+		
+		body {
+			width: 100%;
+			height: 100%;
+			background: #fff;
+			overflow: hidden;
 		}
+		
+		.content {
+			width: 100%;
+			background: #f5f5f5;
+			position: relative;
+			left: 200px;
+			top: 49px;
+			box-sizing: border-box;
+			padding: 10px;
+			padding-right: 0;
+		}
+		/*内容上半部分*/
+		
+		.title {
+			font-weight: 600;
+			padding: 20px 0;
+			padding-left: 10px;
+		}
+		
+		.top-content {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			overflow: auto;
+			box-sizing: border-box;
+			padding-bottom: 50px;
+		}
+		
+		.left-content {
+			overflow: auto;
+			width: 75%;
+			background: #fff;
+			border-right: 5px solid #f5f5f5;
+		}
+		
+		.right-content {
+			width:25%;
+			background: #fff;
+			overflow: auto;
+		}
+		/*内容下半部分*/
+		
+		.bottom-content {
+			width: 88%;
+			height: 50px;
+			line-height: 50px;
+			position: fixed;
+			left: 200px;
+			bottom: 0;
+			background: #fff;
+			text-align: right;
+			padding-right: 100px;
+			overflow-x: auto;
+		}
+		
+		.bottom-content button {
+			margin-left: 40px;
+		}
+		/*.all-button{
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			background: #fff;
+		}*/
+		
+		.form-horizontal .control-label {
+			font-weight: normal;
+			padding-right: 0;
+		}
+		
+		.form-horizontal .form-group {
+			margin-right: 0px;
+			margin-left: 0px;
+		}
+		
+		.xing,
+		.kong {
+			width: 14%;
+		}
+		
+		.xing:before {
+			content: "*";
+			color: red;
+			padding-right: 4px;
+		}
+		
+		.sex {
+			padding-left: 0;
+			display: flex;
+			line-height: 33px;
+		}
+		
+		.sex input {
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+		
+		.sex span {
+			padding-left: 10px;
+		}
+		
+		.age input {
+			margin: 0;
+			margin-left: 10px;
+		}
+		
+		.add-btn button {
+			margin-top: 10px;
+		}
+		/*病史添加*/
+		
+		.add-medical {
+			background: #f5f5f5;
+			border: 4px solid #fff;
+			border-top: 0;
+			padding-bottom: 10px;
+			position: relative;
+		}
+		
+		.addmedical {
+			padding-top: 14px;
+		}
+		
+		.left-addmedical {
+			width: 10%;
+			line-height: 52px;
+			text-align: right;
+		}
+		
+		.right-addmedical {
+			width: 90%;
+			padding-left: 10px;
+		}
+		
+		.addmedis {
+			margin-top: 10px;
+			display: flex;
+			height: 33px;
+			line-height: 33px;
+		}
+		
+		.addmedis p {
+			text-align: center;
+			width: 64px;
+		}
+		
+		.addmedis p.two {
+			margin-left: 20px;
+		}
+		
+		.addmedis input {
+			width: 10%;
+		}
+		.outer input{
+			width: 100%;
+		}
+		.closemed{
+			position: absolute;
+			right:5px;
+			top: 2px;
+			width:20px;
+			height:20px;
+			background: url(img/close.png) no-repeat center center;
+			background-size: 20px 20px;
+			border-radius: 50%;
+		}
+		/*添加检查项*/
+		.add-examine{
+			display: flex;
+			height: 34px;
+			line-height: 34px;
+			position: relative;
+			margin-top: 10px;
+			margin-left:14% ;
+		}
+		.add-examine input{
+			width:34%;
+			margin-right: 10px;
+		}
+		.add-examine i{
+			float: right;
+			font-style: normal;
+			color: #f56c6c;
+			width: 34px;
+			height: 34px;
+			display: inline-block;
+			text-align: center;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+		}
+		.add-examine i:hover{
+			background: #f56c6c;
+			border-radius:5px;
+			color: #fff;
+			cursor: pointer;
+		}
+		form.form-horizontal{
+			margin: 0 auto;
+		}
+		@media only screen and (min-width:1200px ) {
+			form.form-horizontal {
+			    width:750px;
+			}
+			.total-info{
+				width: 750px;
+			}
+		}
+		.total-info{
+			background: #eee;
+			margin-bottom: 10px;
+		    padding: 16px 18px 26px 46px;
+		}
+		.total-info .total{
+			
+		}
+		.total-info .info{
+			float: right;
+		}
+		.total-info .info span{
+			color: red;
+		}
+		.format{
+			padding-top: 6px;
+		}
+		.pic{
+			margin-left: 20px;
+			width: 80px;
+		    height: 80px;
+		    border: 1px solid #999;
+		    text-align: center;
+		    color: #999;
+		    padding: 5px;
+		    -webkit-box-sizing: border-box;
+		    box-sizing: border-box;
+		    cursor: pointer;
+		    position: relative;
+		    text-align: center;
+		 	line-height: 110px;
+		 	background: url(img/upload.png) no-repeat top center;
+		 	background-size: 48px 48px;
+		 	margin-top: 10px;
+		}
+		.pic input{
+			width: 80px;
+		    height: 80px;
+		    outline: none;
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		    opacity: 0;
+		}
+		.pic:hover{
+			border-color:#409eff ;
+			color: #409eff;
+		}
+		/*患者内容*/
+		.sufferer-content{
+			
+		}
+		/*患者历史*/
+		.right-tab{
+			height: 40px;
+			line-height: 40px;
+			padding: 0 20px;
+		}
+		.right-tab ul{
+			display: flex;
+			margin: 0;
+		}
+		.right-tab ul li{
+			text-align: center;
+			list-style: none;
+			height: 39px;
+			margin-right: 20px;
+		}
+		.right-tab ul li.cur{
+			border-bottom: 2px solid #409eff;
+			color: #409eff;
+		}
+		.right-tab ul li:hover{
+			cursor: pointer;
+			color: #409eff;
+		}
+		.sufferer-history{
+			
+		}
+		.sufferer-history ol{
+			margin: 0;
+			height: 350px;
+			overflow: auto;
+			
+		}
+		.sufferer-history ol li{
+			list-style: none;
+			display: flex;
+			padding: 20px;
+		}
+		.sufferer-history ol li:hover{
+			background: #e9f3ff;
+		}
+		.sufferer-left{
+			width: 34px;
+			height: 34px;
+			line-height: 34px;
+		}
+		.sufferer-left span{
+			width: 20px;
+		    height: 20px;
+		    text-align: center;
+		    line-height: 20px;
+		    color: #fff;
+		    background: #3f97ff;
+		    border-radius: 10px 0 10px 10px;
+		    display: inline-block;
+		}
+		.sufferer-right h5{
+			margin-top: 0;
+		}
+		.sufferer-right p{
+			margin: 0;
+		
+		}
+		.sufferer-history ol::-webkit-scrollbar{
+			display:none;
+		}
+		/*诊断*/
+		.diagnose{
+			
+		}
+		.diagnose ul{
+			border-top: 2px solid #eee;
+			overflow: auto;
+		}
+		.diagnose ul li{
+			list-style: none;
+			padding: 10px 20px;
+		}
+		.diagnose ul li .head{
+			color: #3f97ff;
+		    font-size: 14px;
+		    cursor: pointer;
+		}
+		.diagnose ul li .head:before{
+			content: "+";
+			border: 1px solid #3f97ff;
+			border-radius: 50%;
+			width: 16px;
+			height: 16px;
+			text-align: center;
+			line-height: 13px;
+			display: inline-block;
+			color: #3f97ff;
+		}
+		.diagnose ul li p{
+			color: #999;
+   			margin-top: 10px;
+		}
+		textarea.form-control {
+			height: 34px;
+		}	
 	</style>
 
 	<body>
 
 		<div class="content">
-			1111111
+			<!--上面内容-->
+			<div class="top-content">
+				<div class="left-content">
+					<form class="form-horizontal">
+						<!--个人信息-->
+						<div class="title">个人信息</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label xing">姓名</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="" placeholder="请输入会员号">
+							</div>
+							<label for="" class="col-sm-2 control-label xing">性别</label>
+							<div class="col-sm-3 sex">
+								<input type="radio" name="" id="" value="0" checked=""> <span>男</span>
+								<input type="radio" name="" id="" value="1"> <span>女</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label xing">电话</label>
+							<div class="col-sm-5">
+								<input type="phone" class="form-control" id="" placeholder="请输入电话号码">
+							</div>
+							<label for="" class="col-sm-2 control-label xing">年龄</label>
+							<div class="col-sm-3 sex age">
+								<input type="text" class="form-control" id="" placeholder=""> <span>岁</span>
+								<input type="text" class="form-control" id="" placeholder=""> <span>月</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">地址</label>
+							<div class="col-sm-5">
+								<select class="form-control">
+									<option>湖南省</option>
+									<option>湖北省</option>
+									<option>广东省</option>
+									<option>四川省</option>
+									<option>浙江省</option>
+								</select>
+							</div>
+							<div class="col-sm-5">
+								<input type="phone" class="form-control" id="" placeholder="详细地址">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">过敏史</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="1" placeholder="请输入内容"></textarea>
+							</div>
+						</div>
+						<!--诊疗信息-->
+						<div class="title">诊疗信息</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">主述</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="1" placeholder=""></textarea>
+							</div>
+						</div>
+						<div class="">
+							<div class="form-group">
+								<label for="" class="col-sm-2 control-label kong">现病史</label>
+								<div class="col-sm-10" style="display: block;">
+									<input type="text" class="form-control" placeholder="">
+									<div class="add-btn">
+										<button type="button" class="btn btn-success btn-sm">补充体格检查</button>
+										<button type="button" class="btn btn-success btn-sm">其他病史</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group add-medical hide"><span class="closemed"></span>
+								<!--补充体格检查-->
+								<div class="addmedical clearfix hide">
+									<div class="left-addmedical pull-left">
+										体格检查
+									</div>
+									<div class="right-addmedical pull-left">
+										<div class="addmedis">
+											<p>体温：</p><input type="text" class="form-control" id="" placeholder=""> &nbsp;<span>℃ </span>
+											<p class="two">体重：</p><input type="text" class="form-control" id="" placeholder=""> &nbsp;<span>KG</span>
+										</div>
+										<div class="addmedis">
+											<p>心率：</p><input type="text" class="form-control" id="" placeholder=""> &nbsp;<span>bpm</span>
+										</div>
+										<div class="addmedis">
+											<p>血压：</p><input type="text" class="form-control" id="" placeholder="收缩">&nbsp;/&nbsp;<input type="text" class="form-control" id="" placeholder="舒张"><span>mmHg</span>
+										</div>
+										<div class="addmedis">
+											<textarea class="form-control" rows="1" placeholder="其他体格检查"></textarea>
+										</div>
+									</div>
+								</div>
+								<!--其他病史-->
+								<div class="addmedical clearfix hide">
+									<div class="left-addmedical pull-left">
+										其他病史
+									</div>
+									<div class="right-addmedical pull-left">
+										<div class="addmedis outer">
+											<p>既往史：</p><input type="text" class="form-control" id="" placeholder="">
+										</div>
+										<div class="addmedis outer">
+											<p>个人史：</p><input type="text" class="form-control" id="" placeholder="">
+										</div>
+										<div class="addmedis outer">
+											<p>家族史：</p><input type="text" class="form-control" id="" placeholder="">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label xing">诊断</label>
+							<div class="col-sm-10">
+								<select class="form-control">
+									<option>请选择</option>
+									<option>四肢麻木</option>
+									<option>跌打损伤</option>
+									<option>头痛发热</option>
+									<option>伤风感冒</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group examinepar">
+							<label for="" class="col-sm-2 control-label kong">检查治疗项</label>
+							<div class="col-sm-10">
+								<button type="button" class="btn btn-primary addexa btn-sm">添加检查治疗项目</button>
+								<button type="button" class="btn btn-primary btn-sm">载入检查治疗项目</button>
+							</div>
+							<!--<div class="col-sm-10 add-examine">
+								<input type="text" class="form-control" id="" placeholder="检查项">
+								<input type="text" class="form-control" id="" value="1"> <span>￥0.00</span><i class="delecex">删除</i>
+							</div>-->
+						</div>
+						<!--诊疗信息-->
+						<div class="title">药品信息</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">药品来源</label>
+							<div class="col-sm-3 sex">
+								<input type="radio" name="" id="" value="0" checked=""> <span>本地药房</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">处方</label>
+							<div class="col-sm-10">
+								<button type="button" class="btn btn-primary btn-sm">+成药处方</button>
+								<button type="button" class="btn btn-primary btn-sm">+饮片处方</button>
+								<button type="button" class="btn btn-primary btn-sm">+输液处方</button>
+								<button type="button" class="btn btn-primary btn-sm">+敷贴处方</button>
+								<button type="button" class="btn btn-primary btn-sm">载入常用处方</button>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">附加费用</label>
+							<div class="col-sm-10">
+								<button type="button" class="btn btn-primary btn-sm">添加附加费用</button>
+								<button type="button" class="btn btn-primary btn-sm">载入附加费用</button>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">医嘱</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="1" placeholder="请输入内容"></textarea>
+							</div>
+						</div>
+						<div class="total-info">
+							<div  class="total">合计：</div>
+							<div class="info">
+								<div class="info-text">总金额： ￥ <span >0.000</span></div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label kong">附件</label>
+							<div class="col-sm-10 format">支持图片、PDF、WORD格</div>
+							<div class="col-sm-10 pic">
+								<input type="file" name="file"  accept=".jpg,.doc,.jpeg,.bmp,.png,.pdf,.docx" class="el-upload__input">
+								<p>图片上传</p>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="right-content">
+					<!--患者历史处方切换-->
+					<div class="right-tab">
+						<ul>
+							<li class="cur">患者历史</li>
+							<li>患者处方</li>
+						</ul>
+					</div>
+					<!--患者内容-->
+					<div class="sufferer-content">
+						<!--患者历史-->
+						<div class="sufferer-history">
+							<!--上部分-->
+							<ol class="sufferer-list">
+								<li class="active">
+									<div class="sufferer-left">
+										<span>1</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>22222222</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>2</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>22222</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>3</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>22222</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>4</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>22222</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>5</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>111222211111111</p>
+									</div>
+								</li>
+							</ol>
+							<!--下部分-->
+							<div class="diagnose">
+								<ul>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!--患者处方-->
+						<div class="sufferer-history" style="display: none;">
+							<!--上部分-->
+							<ol class="sufferer-list">
+								<li class="active">
+									<div class="sufferer-left">
+										<span>1</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>11111111111</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>2</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>11111111111</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>3</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>11111111111</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>4</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>11111111111</p>
+									</div>
+								</li>
+								<li>
+									<div class="sufferer-left">
+										<span>5</span>
+									</div>
+									<div class="sufferer-right">
+										<h5>2019-06-20</h5>
+										<p>11111111111</p>
+									</div>
+								</li>
+							</ol>
+							<!--下部分-->
+							<div class="diagnose">
+								<ul>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+									<li>
+										<div class="head">
+											诊断
+										</div>
+										<p>1111111111</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--底部内容-->
+			<div class="bottom-content">
+				<button type="button" class="btn btn-success">打印病历</button>
+				<button type="button" class="btn btn-success">打印处方</button>
+				<button type="button" class="btn btn-primary">完成诊断</button>
+			</div>
 		</div>
 		<script src="js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			var W = 0;
-			var H = 0;
+			var W = 0,
+				H = 0,
+				L = 200, //设定离左边内容的高度
+				T = 50; //设定离上面的内容高度
 
-			function findDimensions() //函数：获取尺寸
-			{
+			//获取浏览器窗口尺寸
+			function findDimensions() {
 				W = $(window).innerWidth();
 				H = $(window).innerHeight();
-				// 结果输出至两个文本框
+				// content的高度宽度计算位置
 				$(".content").css({
-					"width" : W  + 'px' ,
-					"height": H   + 'px'
-				})
-				console.log(H)
+					"width": W - L + 'px',
+					"height": H - T + 'px'
+				});
+
 			}
 			findDimensions(); // 调用函数，获取数值
-			//setInterval(findDimensions,2000)
+			//随浏览器窗口变化变化
+			$(window).resize(findDimensions);
+			
+			/*其他病史补充体格检查*/
+			$(".add-btn button").click(function(){
+				var index = $(this).index();
+				$(".add-medical").addClass('show')
+				if (index == 0) {
+					$(".addmedical").eq(0).addClass("show");
+				} else{
+					$(".addmedical").eq(1).addClass("show");
+				}
+				
+			})
+			//其他病史补充关闭
+			$(".closemed").click(function(){
+				$(".add-medical").removeClass('show');
+				$(".addmedical").eq(0).removeClass("show");
+				$(".addmedical").eq(1).removeClass("show");
+			})
+			//添加选择项目
+			var exa = 0;
+			var div = '';
+			$(".addexa").click(function(){
+					div = '<div class="col-sm-10 add-examine">'+
+								'<input type="text" class="form-control" id="" placeholder="检查项">'+
+								'<input type="text" class="form-control" id="" value="1"> <span>￥0.00</span><i class="delecex">删除</i>'+
+							'</div>';
+				$(".examinepar").append(div);
+			})
+			//删除添加选择项目
+			$(document).on("click",".delecex",function(){
+				$(this).parent(".add-examine").remove();
+			})
+			//患者历史和患者处方切换
+			$('.right-tab ul li').click(function(){
+				$(this).addClass("cur").siblings().removeClass("cur");
+				var index = $(this).index();
+				$(".sufferer-content .sufferer-history").eq(index).show().siblings(".sufferer-history").hide();
+			})
 		</script>
 	</body>
 
