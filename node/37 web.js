@@ -16,7 +16,23 @@ http.createServer(function(request,response){
 	fs.readFile(pathname.substr(1),function(err,data){
 		if(err){
 			console.log(err);
+			//HTTP 状态码：404 :NOT FOUND
+			//Content Type :text/html
+			response.writeHead(404,{'Content-Type':'text/html'});
+		}else{
+			//状态码 200 ok
+			//content type text/html
+			response.writeHead(200,{'Content-Type':'text/html'});
 			
+			//响应文件内容
+			response.write(data.toString());
 		}
-	})
-});
+		
+		//发送相应数据
+		response.end();
+	});
+}).listen(8080);
+
+
+//控制台会输出一下信息
+console.log("Server running at http://127.0.0.1:8080/")
