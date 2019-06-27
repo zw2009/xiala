@@ -39,7 +39,6 @@
 			.head-content {
 				padding: 15px 20px;
 				height: 94px;
-				background: rgba(0, 0, 0, 0.5);
 				box-sizing: border-box;
 			}
 			
@@ -67,6 +66,7 @@
 			
 			.per-order {
 				margin: 20px;
+				margin-top: -72px;
 			}
 			
 			.my-order {
@@ -109,11 +109,88 @@
 			.my-order ul li div{
 				width: 100%;
 				height: 40px;
-				display: table-cell;
- 				vertical-align:middle;
 			}
 			.my-order ul li div img{
 				width: 32px;
+			}
+			/*优惠券*/
+			.coupon{
+				margin-top: 10px;
+			}
+			.coupon ul li{
+				width: 25%;
+				padding: 10px 0;
+				position: relative;
+			}
+			.coupon ul li i{
+				padding: 0 5px;
+				background: red;
+				color: #fff;
+				font-style: normal;
+				border-radius: 15px;
+				position: absolute;
+				right: 0;
+				top: 0;
+				display: block;
+			}
+			.coupon ul li div{
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				margin: 0 auto;
+				background: #fbf8cb;
+				margin-bottom: 10px;
+			}
+			.coupon ul li:nth-child(1) div{
+				background: url(img/yhj.png) no-repeat center center #fbf8cb;
+				background-size:26px 22px ;
+			}
+			.coupon ul li:nth-child(2) div{
+				background: url(img/ljzx.png) no-repeat center center #fbf8cb;
+				background-size:26px 22px ;
+			}
+			.coupon ul li:nth-child(3) div{
+				background: url(img/zm.png) no-repeat center center #fbf8cb;
+				background-size:26px 22px ;
+			}
+			.coupon ul li:nth-child(4) div{
+				background: url(img/lxkf.png) no-repeat center center #fbf8cb;
+				background-size:26px 22px ;
+			}
+			/*收货地址*/
+			.my-address{
+				
+			}
+			.my-address ul{
+				
+			}
+			.my-address ul li{
+				float: none;
+				width: 100%;
+				border-bottom: 1px solid #ccc;
+			}
+			.my-address ul li:last-child{
+				border: none;
+			}
+			.my-address ul li span{
+				height:26px;
+				line-height: 26px;
+				display: block;
+				position: relative;
+				text-align: left;
+			}
+			.my-address ul li span:after{
+				content: "";
+				width: 8px;
+				height: 8px;
+				border-top: 1px solid #ccc;
+				border-right: 1px solid #ccc;
+				z-index: 999;
+				position: absolute;
+				right: 2px;
+				top:50%;
+				transform: rotatez(45deg);
+				margin-top: -4px;
 			}
 		</style>
 	</head>
@@ -144,6 +221,20 @@
 						<li><div><img src="img/psz.png" alt="" /></div>配送中</li>
 						<li><div><img src="img/jycg.png" alt="" /></div>交易成功</li>
 						<li><div><img src="img/tk.png"/></div>退货/退款</li>
+					</ul>
+				</div>
+				<div class="my-order coupon">
+					<ul class="clearfix">
+						<li><div></div>优惠券(0)张</li>
+						<li><div></div>领劵中心<i>有新劵</i></li>
+						<li><div></div>供应商招募</li>
+						<li><div></div>联系客服</li>
+					</ul>
+				</div>
+				<div class="my-order coupon my-address">
+					<ul>
+						<li><span>我的收货地址</span></li>
+						<li><span>小区长信息</span></li>
 					</ul>
 				</div>
 			</div>
